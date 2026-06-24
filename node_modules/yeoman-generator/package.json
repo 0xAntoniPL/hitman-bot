@@ -1,0 +1,86 @@
+{
+  "name": "yeoman-generator",
+  "version": "5.6.1",
+  "description": "Rails-inspired generator system that provides scaffolding for your apps",
+  "homepage": "http://yeoman.io",
+  "author": "Yeoman",
+  "files": [
+    "lib"
+  ],
+  "main": "lib",
+  "keywords": [
+    "development",
+    "dev",
+    "build",
+    "tool",
+    "cli",
+    "scaffold",
+    "scaffolding",
+    "generate",
+    "generator",
+    "yeoman",
+    "app"
+  ],
+  "config": {
+    "doc_path": "../yeoman-generator-doc/"
+  },
+  "devDependencies": {
+    "coveralls": "^3.0.3",
+    "inquirer": "^7.3.2",
+    "jsdoc": "^3.6.7",
+    "mem-fs": "^2.1.0",
+    "mem-fs-editor": "^9.0.0",
+    "mocha": "^8.0.1",
+    "mockery": "^2.1.0",
+    "nock": "^13.0.2",
+    "nyc": "^15.0.0",
+    "prettier": "^2.0.5",
+    "proxyquire": "^2.1.0",
+    "rimraf": "^3.0.2",
+    "sinon": "^9.0.2",
+    "through2": "^4.0.2",
+    "tui-jsdoc-template": "^1.2.2",
+    "xo": "^0.38.1",
+    "yeoman-assert": "^3.1.1",
+    "yeoman-environment": "^3.2.0",
+    "yeoman-generator": "^5.0.0",
+    "yeoman-test": "^6.0.0"
+  },
+  "license": "BSD-2-Clause",
+  "repository": "yeoman/generator",
+  "engines": {
+    "node": ">=12.10.0"
+  },
+  "scripts": {
+    "pretest": "xo",
+    "test": "nyc mocha --forbid-only",
+    "doc": "npm run doc:generate && npm run doc:fix && npm run doc:prettier",
+    "doc:generate": "jsdoc -c jsdoc.json -d $npm_package_config_doc_path$DOC_FOLDER",
+    "doc:prettier": "prettier $npm_package_config_doc_path$DOC_FOLDER --write --ignore-path .prettierignore-doc",
+    "doc:fix": "sed -i -e 's:^[[:space:]]*<!--[[:space:]]*$::g' -e 's:^[[:space:]]*-->[[:space:]]*$::g' $npm_package_config_doc_path$DOC_FOLDER/global.html || true",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
+  },
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "dargs": "^7.0.0",
+    "debug": "^4.1.1",
+    "execa": "^4.1.0",
+    "github-username": "^6.0.0",
+    "lodash": "^4.17.11",
+    "minimist": "^1.2.5",
+    "read-pkg-up": "^7.0.1",
+    "run-async": "^2.0.0",
+    "semver": "^7.2.1",
+    "shelljs": "^0.8.5",
+    "sort-keys": "^4.2.0",
+    "text-table": "^0.2.0"
+  },
+  "peerDependencies": {
+    "yeoman-environment": "^3.2.0"
+  },
+  "peerDependenciesMeta": {
+    "yeoman-environment": {
+      "optional": true
+    }
+  }
+}

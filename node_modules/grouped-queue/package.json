@@ -1,0 +1,29 @@
+{
+  "name": "grouped-queue",
+  "version": "2.0.0",
+  "description": "In memory queue system prioritizing tasks",
+  "main": "lib/queue.js",
+  "scripts": {
+    "test": "mocha -R spec"
+  },
+  "repository": "SBoudrias/grouped-queue",
+  "keywords": [
+    "queue",
+    "async",
+    "task",
+    "flow",
+    "control"
+  ],
+  "author": "Simon Boudrias <admin@simonboudrias.com>",
+  "license": "MIT",
+  "files": [
+    "lib"
+  ],
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "devDependencies": {
+    "mocha": "^8.0.1",
+    "sinon": "^9.0.2"
+  }
+}

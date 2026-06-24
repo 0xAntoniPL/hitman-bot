@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "types": ["node"],
+    "target": "es2018",
+    "lib": ["es2018"],
+    "noEmit": true,
+    "module": "commonjs",
+    "allowJs": true,
+    "checkJs": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strict": true,
+    "baseUrl": "./",
+    "paths": {
+      // "@pre-bundled/rimraf": ["./types/pre-bundled__rimraf"],
+      "@pre-bundled/tape": ["./types/pre-bundled__tape"],
+      "*" : ["./types/*"]
+    }
+  },
+  "include": [
+    "types/**/*.d.ts",
+    "index.js",
+    "test/**/*.js"
+  ]
+}

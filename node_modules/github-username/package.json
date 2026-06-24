@@ -1,0 +1,40 @@
+{
+	"name": "github-username",
+	"version": "6.0.0",
+	"description": "Get a GitHub username from an email address",
+	"license": "MIT",
+	"repository": "sindresorhus/github-username",
+	"funding": "https://github.com/sponsors/sindresorhus",
+	"author": {
+		"name": "Sindre Sorhus",
+		"email": "sindresorhus@gmail.com",
+		"url": "https://sindresorhus.com"
+	},
+	"engines": {
+		"node": ">=10"
+	},
+	"scripts": {
+		"test": "xo && ava && tsd"
+	},
+	"files": [
+		"index.js",
+		"index.d.ts"
+	],
+	"keywords": [
+		"github",
+		"user",
+		"username",
+		"email",
+		"address",
+		"gh",
+		"git"
+	],
+	"dependencies": {
+		"@octokit/rest": "^18.0.6"
+	},
+	"devDependencies": {
+		"ava": "^2.4.0",
+		"tsd": "^0.14.0",
+		"xo": "^0.36.1"
+	}
+}

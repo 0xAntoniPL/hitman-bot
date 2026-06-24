@@ -1,0 +1,51 @@
+{
+  "name": "error",
+  "version": "10.4.0",
+  "description": "Custom errors",
+  "keywords": [],
+  "author": "Raynos <raynos2@gmail.com>",
+  "repository": "git://github.com/Raynos/error.git",
+  "main": "index",
+  "homepage": "https://github.com/Raynos/error",
+  "contributors": [
+    {
+      "name": "Raynos"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/Raynos/error/issues",
+    "email": "raynos2@gmail.com"
+  },
+  "binDependencies": {
+    "istanbul": "0.3.13",
+    "tsdocstandard": "15.2.2",
+    "type-coverage": "2.4.3",
+    "typescript": "3.8.3"
+  },
+  "tsdocstandard": {
+    "ignore": [
+      "benchmarks/index.js"
+    ]
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@pre-bundled/tape": "5.0.0",
+    "@types/node": "13.13.4",
+    "npm-bin-deps": "1.8.2"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://github.com/Raynos/error/raw/master/LICENSE"
+    }
+  ],
+  "scripts": {
+    "check": "npr tsc -p .",
+    "lint": "npr tsdocstandard -v",
+    "test": "npm run check && npm run lint && node test/index.js && npm run type-coverage",
+    "type-coverage": "npr type-coverage --detail --strict --ignore-catch --at-least 100",
+    "travis-test": "npr istanbul cover ./test/index.js && ((cat coverage/lcov.info | coveralls) || exit 0)",
+    "cover": "npr istanbul cover --report none --print detail ./test/index.js",
+    "view-cover": "npr istanbul report html && google-chrome ./coverage/index.html"
+  }
+}

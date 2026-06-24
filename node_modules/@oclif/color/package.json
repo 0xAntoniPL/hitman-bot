@@ -1,0 +1,51 @@
+{
+  "name": "@oclif/color",
+  "version": "1.0.1",
+  "author": "Salesforce",
+  "bugs": "https://github.com/oclif/color/issues",
+  "dependencies": {
+    "ansi-styles": "^4.2.1",
+    "chalk": "^4.1.0",
+    "strip-ansi": "^6.0.1",
+    "supports-color": "^8.1.1",
+    "tslib": "^2"
+  },
+  "devDependencies": {
+    "@types/ansi-styles": "^3.2.1",
+    "@types/chai": "^4",
+    "@types/mocha": "^8",
+    "@types/node": "^14",
+    "@types/supports-color": "^8.1.0",
+    "chai": "^4",
+    "eslint": "^7.21.0",
+    "eslint-config-oclif": "^3.1.0",
+    "eslint-config-oclif-typescript": "^0.2.0",
+    "mocha": "^8",
+    "nyc": "^15",
+    "ts-node": "^9",
+    "typescript": "3.8.3"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "files": [
+    "/lib"
+  ],
+  "homepage": "https://github.com/oclif/color",
+  "keywords": [
+    "oclif"
+  ],
+  "license": "MIT",
+  "main": "lib/index.js",
+  "repository": "oclif/color",
+  "scripts": {
+    "posttest": "yarn lint",
+    "prepack": "yarn build",
+    "prepare": "yarn build",
+    "test": "mocha --forbid-only \"test/**/*.test.ts\"",
+    "lint": "eslint . --ext .ts --config .eslintrc",
+    "pretest": "yarn build --noEmit && tsc -p test --noEmit",
+    "build": "rm -rf lib && tsc"
+  },
+  "types": "lib/index.d.ts"
+}

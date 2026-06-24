@@ -1,0 +1,10 @@
+*-debug.log
+*-error.log
+/.nyc_output
+/dist
+/lib
+/tmp
+oclif.manifest.json
+/pkg
+rebuild-history.mjs
+rebuild-run.log

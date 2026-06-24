@@ -1,0 +1,40 @@
+{
+	"name": "is-scoped",
+	"version": "2.1.0",
+	"description": "Check if a string is a scoped npm package name",
+	"license": "MIT",
+	"repository": "sindresorhus/is-scoped",
+	"author": {
+		"name": "Sindre Sorhus",
+		"email": "sindresorhus@gmail.com",
+		"url": "sindresorhus.com"
+	},
+	"engines": {
+		"node": ">=8"
+	},
+	"scripts": {
+		"test": "xo && ava && tsd"
+	},
+	"files": [
+		"index.js",
+		"index.d.ts"
+	],
+	"keywords": [
+		"scoped",
+		"npm",
+		"package",
+		"name",
+		"is",
+		"detect",
+		"validate",
+		"validation"
+	],
+	"dependencies": {
+		"scoped-regex": "^2.0.0"
+	},
+	"devDependencies": {
+		"ava": "^1.4.1",
+		"tsd": "^0.7.2",
+		"xo": "^0.24.0"
+	}
+}

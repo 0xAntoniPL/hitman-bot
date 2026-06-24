@@ -1,0 +1,36 @@
+{
+  "name": "p-transform",
+  "version": "1.3.0",
+  "main": "index.js",
+  "export": "index.js",
+  "bugs": "https://github.com/mshima/p-transform/issues",
+  "files": [],
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=12.10.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mshima/p-transform.git"
+  },
+  "scripts": {
+    "pretest": "prettier --check . && eslint .",
+    "test": "mocha",
+    "doc": "jsdoc2md index.js",
+    "fix": "prettier --write . && eslint . --fix"
+  },
+  "dependencies": {
+    "debug": "^4.3.2",
+    "p-queue": "^6.6.2"
+  },
+  "devDependencies": {
+    "eslint": "^7.26.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "jsdoc-to-markdown": "^7.1.0",
+    "mocha": "^9.0.0",
+    "prettier": "^2.3.1",
+    "sinon": "^12.0.1"
+  }
+}

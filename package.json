@@ -1,0 +1,125 @@
+﻿{
+  "name": "defi-cli",
+  "version": "0.3.1",
+  "description": "defi-cli toolkit",
+  "author": "jayohf",
+  "bin": {
+    "defi-cli": "./bin/run"
+  },
+  "homepage": "https://github.com/jayohf/defi-cli",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "repository": "jayohf/defi-cli",
+  "files": [
+    "/bin",
+    "/dist",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json"
+  ],
+  "dependencies": {
+    "@mtproto/core": "6.1.1",
+    "@oclif/command": "^1.8.16",
+    "@oclif/core": "^1",
+    "@oclif/plugin-autocomplete": "^1.2.0",
+    "@oclif/plugin-help": "^5",
+    "@oclif/plugin-plugins": "^2.0.1",
+    "@oclif/plugin-warn-if-update-available": "^2.0.4",
+    "abi-decoder": "^2.4.0",
+    "bn.js": "^5.2.0",
+    "chalk": "^4.1.2",
+    "conf": "^10.1.1",
+    "figlet": "^1.5.2",
+    "inquirer": "^8.2.0",
+    "node-emoji": "^1.11.0",
+    "node-fetch": "^2.6.1",
+    "ora": "^5.4.1",
+    "readline": "^1.3.0",
+    "systeminformation": "^5.11.6",
+    "web3": "^1.6.0",
+    "winston": "^3.3.3",
+    "winston-daily-rotate-file": "^4.5.5"
+  },
+  "devDependencies": {
+    "@mtproto/core": "6.1.1",
+    "@oclif/test": "^2",
+    "@types/chai": "^4",
+    "@types/conf": "^3.0.0",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "^16.11.26",
+    "@types/systeminformation": "^3.54.1",
+    "abi-decoder": "^2.4.0",
+    "bn.js": "^5.2.0",
+    "chai": "^4",
+    "chalk": "^4.1.2",
+    "eslint": "^7.32.0",
+    "eslint-config-oclif": "^4",
+    "eslint-config-oclif-typescript": "^1.0.2",
+    "ethereum-abi-types-generator": "^1.3.2",
+    "figlet": "^1.5.2",
+    "globby": "^11",
+    "inquirer": "^8.2.0",
+    "mocha": "^9",
+    "node-emoji": "^1.11.0",
+    "node-fetch": "^2.6.1",
+    "oclif": "^2",
+    "ora": "^5.4.1",
+    "pkg": "^5.5.2",
+    "shx": "^0.3.3",
+    "ts-node": "^10.2.1",
+    "tslib": "^2.3.1",
+    "typescript": "^4.4.3",
+    "web3": "^1.6.0",
+    "winston": "^3.3.3",
+    "winston-daily-rotate-file": "^4.5.5"
+  },
+  "oclif": {
+    "bin": "defi-cli",
+    "dirname": "defi-cli",
+    "commands": "./dist/commands",
+    "default": "start",
+    "plugins": [
+      "@oclif/plugin-help",
+      "@oclif/plugin-autocomplete"
+    ],
+    "topicSeparator": " ",
+    "hooks": {
+      "init": "./src/hooks/init/configs"
+    }
+  },
+  "scripts": {
+    "bot": "node ./bin/run bot",
+    "build": "shx rm -rf dist && tsc -b",
+    "lint": "eslint . --ext .ts --config .eslintrc",
+    "postpack": "shx rm -f oclif.manifest.json",
+    "prepack": "yarn build && oclif manifest && oclif readme",
+    "smoke:robinhood": "node scripts/robinhood-smoke.js",
+    "test": "mocha --forbid-only test/bot/security.test.ts test/bot/storage.test.ts test/services/robinhood-trading.test.ts",
+    "version": "oclif readme && git add README.md",
+    "pkg": "pkg ."
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "bugs": "https://github.com/jayohf/defi-cli/issues",
+  "keywords": [
+    "oclif"
+  ],
+  "types": "dist/index.d.ts",
+  "pkg": {
+    "assets": [
+      "node_modules/figlet",
+      "oclif.manifest.json"
+    ],
+    "targets": [
+      "node16-linux-x64",
+      "node16-macos-x64",
+      "node16-win-x64",
+      "node16-linux-arm64",
+      "node16-macos-arm64"
+    ],
+    "outputPath": "pkg",
+    "scripts": [
+      "./dist/**/*.js"
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "name": "mem-fs",
+  "version": "2.2.1",
+  "description": "Simple in-memory vinyl file store",
+  "scripts": {
+    "test": "tsc && mocha && tsc -b ./type-test/tsconfig.build.json",
+    "prepare": "tsc"
+  },
+  "repository": "SBoudrias/mem-fs",
+  "author": "Simon Boudrias",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/index.js",
+    "dist/index.d.ts"
+  ],
+  "dependencies": {
+    "@types/node": "^15.6.1",
+    "@types/vinyl": "^2.0.4",
+    "vinyl": "^2.0.1",
+    "vinyl-file": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/vinyl-file": "^3.0.0",
+    "mocha": "^8.3.2",
+    "typescript": "^4.2.4"
+  },
+  "engines": {
+    "node": ">=12"
+  }
+}

@@ -1,0 +1,37 @@
+{
+	"name": "scoped-regex",
+	"version": "2.1.0",
+	"description": "Regular expression for matching scoped npm package names",
+	"license": "MIT",
+	"repository": "sindresorhus/scoped-regex",
+	"author": {
+		"name": "Sindre Sorhus",
+		"email": "sindresorhus@gmail.com",
+		"url": "sindresorhus.com"
+	},
+	"engines": {
+		"node": ">=8"
+	},
+	"scripts": {
+		"test": "xo && ava && tsd"
+	},
+	"files": [
+		"index.js",
+		"index.d.ts"
+	],
+	"keywords": [
+		"scoped",
+		"npm",
+		"package",
+		"name",
+		"regex",
+		"regexp",
+		"regular",
+		"expression"
+	],
+	"devDependencies": {
+		"ava": "^1.4.1",
+		"tsd": "^0.7.2",
+		"xo": "^0.24.0"
+	}
+}
