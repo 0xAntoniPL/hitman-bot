@@ -1,4 +1,4 @@
-﻿{
+{
   "compilerOptions": {
     "declaration": true,
     "importHelpers": true,
@@ -9,6 +9,7 @@
     "target": "es2021",
     "esModuleInterop": true,
     "moduleResolution": "node",
+    "skipLibCheck": true,
     "resolveJsonModule": true
   },
   "include": [
