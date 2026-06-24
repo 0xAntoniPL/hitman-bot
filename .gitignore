@@ -4,6 +4,7 @@
 /dist
 /lib
 /tmp
+node_modules
 oclif.manifest.json
 /pkg
 rebuild-history.mjs

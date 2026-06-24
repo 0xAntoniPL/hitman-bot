@@ -1,7 +1,9 @@
-﻿defi-cli
+defi-cli
 =================
 
 An open-source AIO defi toolkit.
+
+> Fork note: this tree is maintained by 0xAntoniPL with a Robinhood Chain focus. See `docs/FORK.md`.
 
 [![Node.js CI](https://github.com/jayohf/defi-cli/actions/workflows/build.yml/badge.svg)](https://github.com/jayohf/defi-cli/actions/workflows/build.yml)
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)

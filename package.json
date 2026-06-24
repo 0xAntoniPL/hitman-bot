@@ -87,13 +87,12 @@
     }
   },
   "scripts": {
-    "bot": "node ./bin/run bot",
     "build": "shx rm -rf dist && tsc -b",
     "lint": "eslint . --ext .ts --config .eslintrc",
     "postpack": "shx rm -f oclif.manifest.json",
+    "posttest": "yarn lint",
     "prepack": "yarn build && oclif manifest && oclif readme",
-    "smoke:robinhood": "node scripts/robinhood-smoke.js",
-    "test": "mocha --forbid-only test/bot/security.test.ts test/bot/storage.test.ts test/services/robinhood-trading.test.ts",
+    "test": "mocha --forbid-only \"test/**/*.test.ts\"",
     "version": "oclif readme && git add README.md",
     "pkg": "pkg ."
   },
