@@ -183,6 +183,34 @@ const nodeSchema = {
       },
     },
   },
+  robinhood: {
+    type: 'object',
+    default: {},
+    properties: {
+      websockets: {
+        type: 'string',
+        default: '',
+      },
+      rpc: {
+        type: 'string',
+        default: '',
+      },
+    },
+  },
+  robinhood_testnet: {
+    type: 'object',
+    default: {},
+    properties: {
+      websockets: {
+        type: 'string',
+        default: '',
+      },
+      rpc: {
+        type: 'string',
+        default: '',
+      },
+    },
+  },
 } as const;
 
 export const nodeConfig = new Conf({
