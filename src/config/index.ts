@@ -189,11 +189,11 @@ const nodeSchema = {
     properties: {
       websockets: {
         type: 'string',
-        default: '',
+        default: 'https://rpc.mainnet.chain.robinhood.com',
       },
       rpc: {
         type: 'string',
-        default: '',
+        default: 'https://rpc.mainnet.chain.robinhood.com',
       },
     },
   },
@@ -203,11 +203,11 @@ const nodeSchema = {
     properties: {
       websockets: {
         type: 'string',
-        default: '',
+        default: 'https://rpc.testnet.chain.robinhood.com',
       },
       rpc: {
         type: 'string',
-        default: '',
+        default: 'https://rpc.testnet.chain.robinhood.com',
       },
     },
   },
