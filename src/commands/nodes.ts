@@ -1,4 +1,4 @@
-﻿import {Command, flags} from '@oclif/command'
+import {Command, flags} from '@oclif/command'
 import * as os from 'os'
 import {nodeConfig} from '../config/index'
 
@@ -28,6 +28,10 @@ export default class NodeConfig extends Command {
         'kcs.rpc',
         'avax.websockets',
         'avax.rpc',
+        'robinhood.websockets',
+        'robinhood.rpc',
+        'robinhood_testnet.websockets',
+        'robinhood_testnet.rpc',
       ],
     },
     {name: 'value', description: 'value'},
