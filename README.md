@@ -83,6 +83,18 @@ Start defi-cli.
 * Fantom Opera
 * KCC
 * Avalanche
+* Robinhood Chain (mainnet `4663`, testnet `46630`)
+
+## Robinhood Chain setup
+
+Configure RPC endpoints via the nodes command:
+
+```shell
+./bin/run nodes robinhood.rpc https://rpc.mainnet.chain.robinhood.com
+./bin/run nodes robinhood.websockets https://rpc.mainnet.chain.robinhood.com
+```
+
+Public RPCs are convenient for smoke tests but may rate-limit; use a dedicated provider for trading.
 
 # Features
 ### Fair Launch Sniping Tools
