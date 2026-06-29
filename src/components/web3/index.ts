@@ -1,4 +1,4 @@
-﻿import Web3 from 'web3'
+import Web3 from 'web3'
 import {nodeConfig} from '../../config/index'
 
 export const initializeWeb3 = (chain: any) => {
@@ -26,39 +26,51 @@ export const initializeWeb3 = (chain: any) => {
 
     switch (chain) {
     case 1:
-      primaryNode = new Web3(new Web3.providers.WebsocketProvider(nodeConfig.get('eth.websockets'), wsConfig))
-      secondaryNode = new Web3(new Web3.providers.HttpProvider(nodeConfig.get('eth.rpc'), rpcConfig))
+      primaryNode = buildWeb3Connection(nodeConfig.get('eth.websockets'), wsConfig, rpcConfig)
+      secondaryNode = buildWeb3Connection(nodeConfig.get('eth.rpc'), wsConfig, rpcConfig)
       break
 
     case 4:
-      primaryNode = new Web3(new Web3.providers.WebsocketProvider(nodeConfig.get('eth_rinkeby.websockets'), wsConfig))
-      secondaryNode = new Web3(new Web3.providers.HttpProvider(nodeConfig.get('eth_rinkeby.rpc'), rpcConfig))
+      primaryNode = buildWeb3Connection(nodeConfig.get('eth_rinkeby.websockets'), wsConfig, rpcConfig)
+      secondaryNode = buildWeb3Connection(nodeConfig.get('eth_rinkeby.rpc'), wsConfig, rpcConfig)
       break
 
     case 56:
-      primaryNode = new Web3(new Web3.providers.WebsocketProvider(nodeConfig.get('bsc.websockets'), wsConfig))
-      secondaryNode = new Web3(new Web3.providers.HttpProvider(nodeConfig.get('bsc.rpc'), rpcConfig))
+      primaryNode = buildWeb3Connection(nodeConfig.get('bsc.websockets'), wsConfig, rpcConfig)
+      secondaryNode = buildWeb3Connection(nodeConfig.get('bsc.rpc'), wsConfig, rpcConfig)
       break
 
     case 137:
-      primaryNode = new Web3(new Web3.providers.WebsocketProvider(nodeConfig.get('matic.websockets'), wsConfig))
-      secondaryNode = new Web3(new Web3.providers.HttpProvider(nodeConfig.get('matic.rpc'), rpcConfig))
+      primaryNode = buildWeb3Connection(nodeConfig.get('matic.websockets'), wsConfig, rpcConfig)
+      secondaryNode = buildWeb3Connection(nodeConfig.get('matic.rpc'), wsConfig, rpcConfig)
       break
 
     case 250:
-      primaryNode = new Web3(new Web3.providers.WebsocketProvider(nodeConfig.get('ftm.websockets'), wsConfig))
-      secondaryNode = new Web3(new Web3.providers.HttpProvider(nodeConfig.get('ftm.rpc'), rpcConfig))
+      primaryNode = buildWeb3Connection(nodeConfig.get('ftm.websockets'), wsConfig, rpcConfig)
+      secondaryNode = buildWeb3Connection(nodeConfig.get('ftm.rpc'), wsConfig, rpcConfig)
       break
 
     case 321:
-      primaryNode = new Web3(new Web3.providers.WebsocketProvider(nodeConfig.get('kcs.websockets'), wsConfig))
-      secondaryNode = new Web3(new Web3.providers.HttpProvider(nodeConfig.get('kcs.rpc'), rpcConfig))
+      primaryNode = buildWeb3Connection(nodeConfig.get('kcs.websockets'), wsConfig, rpcConfig)
+      secondaryNode = buildWeb3Connection(nodeConfig.get('kcs.rpc'), wsConfig, rpcConfig)
       break
 
     // eslint-disable-next-line unicorn/numeric-separators-style
     case 43114:
-      primaryNode = new Web3(new Web3.providers.WebsocketProvider(nodeConfig.get('avax.websockets'), wsConfig))
-      secondaryNode = new Web3(new Web3.providers.HttpProvider(nodeConfig.get('avax.rpc'), rpcConfig))
+      primaryNode = buildWeb3Connection(nodeConfig.get('avax.websockets'), wsConfig, rpcConfig)
+      secondaryNode = buildWeb3Connection(nodeConfig.get('avax.rpc'), wsConfig, rpcConfig)
+      break
+
+    // eslint-disable-next-line unicorn/numeric-separators-style
+    case 4663:
+      primaryNode = buildWeb3Connection(nodeConfig.get('robinhood.websockets'), wsConfig, rpcConfig)
+      secondaryNode = buildWeb3Connection(nodeConfig.get('robinhood.rpc'), wsConfig, rpcConfig)
+      break
+
+    // eslint-disable-next-line unicorn/numeric-separators-style
+    case 46630:
+      primaryNode = buildWeb3Connection(nodeConfig.get('robinhood_testnet.websockets'), wsConfig, rpcConfig)
+      secondaryNode = buildWeb3Connection(nodeConfig.get('robinhood_testnet.rpc'), wsConfig, rpcConfig)
       break
 
     default:
@@ -82,12 +94,11 @@ export const initializeWeb3 = (chain: any) => {
   })
 }
 
-// const buildWeb3Connection = (evmNode: any, wsConfig: any, rpcConfig: any) => {
-//     if (evmNode.toLowerCase().startsWith('https')) return new Web3(new Web3.providers.HttpProvider(evmNode, rpcConfig));
-//     else {
-//         if (evmNode.toLowerCase().startsWith('wss')) return new Web3(new Web3.providers.WebsocketProvider(evmNode, wsConfig));
-//         else throw 'EOFError';
-//     }
-// };
+const buildWeb3Connection = (evmNode: any, wsConfig: any, rpcConfig: any) => {
+  const nodeUrl = String(evmNode)
+  if (nodeUrl.toLowerCase().startsWith('http')) return new Web3(new Web3.providers.HttpProvider(nodeUrl, rpcConfig))
+  if (nodeUrl.toLowerCase().startsWith('ws')) return new Web3(new Web3.providers.WebsocketProvider(nodeUrl, wsConfig))
+  throw 'Invalid EVM node URL'
+}
 
 const connectFailedString = (G: any) => 'Failed to connect to ' + G.toUpperCase() + ' node.'
