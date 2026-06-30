@@ -1,4 +1,4 @@
-﻿// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'inqu... Remove this comment to see the full error message
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'inqu... Remove this comment to see the full error message
 import inquirer from 'inquirer'
 
 const previousMenu = {
@@ -54,6 +54,10 @@ export const chainSelectionChoices = () => {
         name: 'Avalanche Mainnet',
         // eslint-disable-next-line unicorn/numeric-separators-style
         value: 43114,
+      }, {
+        name: 'Robinhood Chain',
+        // eslint-disable-next-line unicorn/numeric-separators-style
+        value: 4663,
       }, new inquirer.Separator(), quitCli],
     }]).then((D: any) => {
       return resolve(D.list)
