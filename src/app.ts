@@ -1,4 +1,4 @@
-﻿import BN from 'bn.js'
+import BN from 'bn.js'
 import chalk from 'chalk'
 import ora from 'ora'
 import {
@@ -339,6 +339,16 @@ const parseChainDetails = async () => {
 
   case 43114:
     chainName = 'Avalanche Mainnet'
+    break
+
+  // eslint-disable-next-line unicorn/numeric-separators-style
+  case 4663:
+    chainName = 'Robinhood Chain'
+    break
+
+  // eslint-disable-next-line unicorn/numeric-separators-style
+  case 46630:
+    chainName = 'Robinhood Chain Testnet'
     break
 
   default:
