@@ -1,4 +1,4 @@
-﻿/* eslint-disable camelcase */
+/* eslint-disable camelcase */
 /* eslint-disable complexity */
 /* eslint-disable no-negated-condition */
 // @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'abi-... Remove this comment to see the full error message
@@ -116,6 +116,13 @@ export const initializeExchange = (chain: any, exchange: any) => {
       native = '0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7'
       usd = '0xc7198437980c041c805A1EDcbA50c1Ce5db95118'
       if (exchange === 'LAUNCH') exchange = 'TRADER'
+      break
+
+    // eslint-disable-next-line unicorn/numeric-separators-style
+    case 4663:
+      symbol = 'ETH'
+      native = '0x0Bd7D308f8E1639FAb988df18A8011f41EAcAD73'
+      usd = '0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168'
       break
 
     default:
