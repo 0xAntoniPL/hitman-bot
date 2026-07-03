@@ -18,3 +18,7 @@
 ## Caveats
 - Public HTTP RPCs may rate-limit; prefer a dedicated provider for production
 - Public websocket feeds may not expose standard pending-tx JSON-RPC subscriptions
+
+## Constant modules
+- `src/constants/robinhood.ts` — network + token addresses
+- `src/constants/chains.ts` — shared enum helpers
