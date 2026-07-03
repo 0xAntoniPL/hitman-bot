@@ -1,0 +1,12 @@
+{
+  "eth": { "websockets": "", "rpc": "" },
+  "bsc": { "websockets": "", "rpc": "" },
+  "robinhood": {
+    "websockets": "https://rpc.mainnet.chain.robinhood.com",
+    "rpc": "https://rpc.mainnet.chain.robinhood.com"
+  },
+  "robinhood_testnet": {
+    "websockets": "https://rpc.testnet.chain.robinhood.com",
+    "rpc": "https://rpc.testnet.chain.robinhood.com"
+  }
+}
