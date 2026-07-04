@@ -94,7 +94,7 @@ Configure RPC endpoints via the nodes command:
 ./bin/run nodes robinhood.websockets https://rpc.mainnet.chain.robinhood.com
 ```
 
-Public RPCs are convenient for smoke tests but may rate-limit. Prefer a dedicated provider for live trading.
+Public RPCs are convenient for smoke tests but may rate-limit. Prefer a dedicated RPC provider for live trading.
 
 # Features
 ### Fair Launch Sniping Tools
