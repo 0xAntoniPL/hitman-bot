@@ -10,3 +10,9 @@ export const ROBINHOOD_TESTNET_RPC = 'https://rpc.testnet.chain.robinhood.com';
 export const ROBINHOOD_WETH = '0x0Bd7D308f8E1639FAb988df18A8011f41EAcAD73';
 export const ROBINHOOD_USDG = '0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168';
 export const ROBINHOOD_USDG_DECIMALS = 6;
+
+/** Uniswap V2 router on Robinhood mainnet (verify on explorer before use). */
+export const ROBINHOOD_UNI_V2_ROUTER = '0x89e5DB8B5aA49aA85AC63f691524311AEB649eba';
+
+/** Placeholder until additional DEX routers are confirmed. */
+export const RH_UNI_ROUTER_PLACEHOLDER = ROBINHOOD_UNI_V2_ROUTER;
