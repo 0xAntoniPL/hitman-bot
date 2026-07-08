@@ -7,7 +7,7 @@ const previousMenu = {
 }
 
 const quitCli = {
-  name: 'Quit DEFI-CLI',
+  name: 'Quit CLI',
   value: 0,
 }
 
@@ -136,6 +136,14 @@ export const exchangeSelection = (chain: any) => {
         name: 'Trader Joe',
         value: 'TRADER',
       }, J, new inquirer.Separator(), previousMenu, quitCli]
+      break
+
+    // eslint-disable-next-line unicorn/numeric-separators-style
+    case 4663:
+      l = [{
+        name: 'Uniswap on Robinhood Chain',
+        value: 'RH_UNI',
+      }, new inquirer.Separator(), previousMenu, quitCli]
       break
 
     default:
@@ -274,6 +282,13 @@ export const exchangeMenuSelection = (exchange: any) => {
       }, new inquirer.Separator(), reload, latencyTests, switchExchange, quitCli]
       break
 
+    case 'RH_UNI':
+      choices = [{
+        name: 'Manual Address Swap',
+        value: 10,
+      }, new inquirer.Separator(), reload, latencyTests, switchExchange, quitCli]
+      break
+
     case 'LAUNCH':
       choices = [{
         name: 'DxSale Presale Bot',
@@ -303,7 +318,10 @@ export const exchangeMenuSelection = (exchange: any) => {
       name: 'selection',
       message: 'Select Mode:',
       pageSize: 88,
-      choices: [{
+      choices: (exchangeChoice: any) => exchange === 'RH_UNI' && exchangeChoice.option === 10 ? [{
+        name: 'Manual Input Address',
+        value: 120,
+      }, new inquirer.Separator(), previousMenu] : [{
         name: 'Telegram Scanner',
         value: 110,
       }, {

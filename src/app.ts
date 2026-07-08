@@ -277,6 +277,10 @@ const bootstrapExchange = () => {
     exchangeName = 'Trader Joe'
     break
 
+  case 'RH_UNI':
+    exchangeName = 'Robinhood Uniswap'
+    break
+
   case 'LAUNCH':
     exchangeName = 'Launchpad'
     break
