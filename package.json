@@ -1,15 +1,15 @@
-﻿{
-  "name": "defi-cli",
+{
+  "name": "robinhood-defi-cli",
   "version": "0.3.1",
-  "description": "defi-cli toolkit",
-  "author": "jayohf",
+  "description": "Robinhood Chain DeFi CLI by 0xAntoniPL",
+  "author": "0xAntoniPL",
   "bin": {
-    "defi-cli": "./bin/run"
+    "rh-cli": "./bin/run"
   },
-  "homepage": "https://github.com/jayohf/defi-cli",
+  "homepage": "https://github.com/0xAntoniPL/robinhood-defi-cli",
   "license": "MIT",
   "main": "dist/index.js",
-  "repository": "jayohf/defi-cli",
+  "repository": "0xAntoniPL/robinhood-defi-cli",
   "files": [
     "/bin",
     "/dist",
@@ -25,9 +25,11 @@
     "@oclif/plugin-plugins": "^2.0.1",
     "@oclif/plugin-warn-if-update-available": "^2.0.4",
     "abi-decoder": "^2.4.0",
+    "better-sqlite3": "^12.11.1",
     "bn.js": "^5.2.0",
     "chalk": "^4.1.2",
     "conf": "^10.1.1",
+    "dotenv": "^17.4.2",
     "figlet": "^1.5.2",
     "inquirer": "^8.2.0",
     "node-emoji": "^1.11.0",
@@ -35,6 +37,7 @@
     "ora": "^5.4.1",
     "readline": "^1.3.0",
     "systeminformation": "^5.11.6",
+    "telegraf": "^4.12.2",
     "web3": "^1.6.0",
     "winston": "^3.3.3",
     "winston-daily-rotate-file": "^4.5.5"
@@ -42,6 +45,7 @@
   "devDependencies": {
     "@mtproto/core": "6.1.1",
     "@oclif/test": "^2",
+    "@types/better-sqlite3": "^7.6.13",
     "@types/chai": "^4",
     "@types/conf": "^3.0.0",
     "@types/mocha": "^9.0.0",
@@ -54,6 +58,9 @@
     "eslint": "^7.32.0",
     "eslint-config-oclif": "^4",
     "eslint-config-oclif-typescript": "^1.0.2",
+    "eslint-plugin-mocha": "^9.0.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-unicorn": "^36.0.0",
     "ethereum-abi-types-generator": "^1.3.2",
     "figlet": "^1.5.2",
     "globby": "^11",
@@ -73,8 +80,8 @@
     "winston-daily-rotate-file": "^4.5.5"
   },
   "oclif": {
-    "bin": "defi-cli",
-    "dirname": "defi-cli",
+    "bin": "rh-cli",
+    "dirname": "robinhood-defi-cli",
     "commands": "./dist/commands",
     "default": "start",
     "plugins": [
@@ -87,19 +94,20 @@
     }
   },
   "scripts": {
+    "bot": "node ./bin/run bot",
     "build": "shx rm -rf dist && tsc -b",
     "lint": "eslint . --ext .ts --config .eslintrc",
     "postpack": "shx rm -f oclif.manifest.json",
-    "posttest": "yarn lint",
     "prepack": "yarn build && oclif manifest && oclif readme",
-    "test": "mocha --forbid-only \"test/**/*.test.ts\"",
+    "smoke:robinhood": "node scripts/robinhood-smoke.js",
+    "test": "mocha --forbid-only test/bot/security.test.ts test/bot/storage.test.ts test/services/robinhood-trading.test.ts",
     "version": "oclif readme && git add README.md",
     "pkg": "pkg ."
   },
   "engines": {
     "node": ">=12.0.0"
   },
-  "bugs": "https://github.com/jayohf/defi-cli/issues",
+  "bugs": "https://github.com/0xAntoniPL/robinhood-defi-cli/issues",
   "keywords": [
     "oclif"
   ],
