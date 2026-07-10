@@ -1,389 +1,150 @@
-defi-cli
-=================
+# Robinhood Chain CLI
 
-An open-source AIO defi toolkit.
+Robinhood Chain-focused fork of `xRose1/defi-cli` by **0xAntoniPL**.
 
-> Fork note: this tree is maintained by 0xAntoniPL with a Robinhood Chain focus. See `docs/FORK.md`.
+This version narrows the original multi-chain DeFi toolkit to a first working Robinhood Chain program. It supports manual contract-address swaps through Uniswap V2 on Robinhood Chain. Telegram control is intentionally deferred until the local CLI flow is stable.
 
-[![Node.js CI](https://github.com/jayohf/defi-cli/actions/workflows/build.yml/badge.svg)](https://github.com/jayohf/defi-cli/actions/workflows/build.yml)
-[![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
+![Robinhood CLI](assets/hitman-logo.png)
 
-**defi-cli** is free to download. 
+## Network
 
-Donations: Reach out to https://t.me/jayohf on Telegram.
+- Network: Robinhood Chain
+- Chain ID: `4663`
+- Gas token: `ETH`
+- RPC: `https://rpc.mainnet.chain.robinhood.com`
+- Explorer: `https://robinhoodchain.blockscout.com`
+- WETH: `0x0Bd7D308f8E1639FAb988df18A8011f41EAcAD73`
+- USDG: `0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168` (`6` decimals)
+- UniswapV2Router02: `0x89e5DB8B5aA49aA85AC63f691524311AEB649eba`
 
-I created a group as well if anyone wants to join and discuss bugs/new features, etc.
-https://t.me/+hJ4bQRAANbNlNmI5
+Robinhood testnet RPC settings are included for connection work, but the interactive swap flow targets mainnet because the verified Uniswap V2 router above is a mainnet deployment.
 
-
-<!-- toc -->
-* [Installation](#installation)
-* [Quickstart](#quickstart)
-* [Supported Blockchains](#supported-blockchains)
-* [Features](#features)
-* [Settings](#settings)
-* [Commands](#commands)
-<!-- tocstop -->
-
-# Installation
-
-Binaries are built using GitHub Actions and are available for Linux (x64, arm), macOS (x64, arm), and Windows (x64). Check the [![releases page](https://github.com/jayohf/defi-cli/releases/)](https://github.com/jayohf/defi-cli/releases/) for the latest version.
-
-## Linux
-
-Open Terminal.
-
-`curl https://github.com/jayohf/defi-cli/releases/latest/download/defi-cli-linux-x64 -o defi-cli`
-
-`chmod +x defi-cli`
-
-## macOS
-
-Open Terminal.
-
-`curl https://github.com/jayohf/defi-cli/releases/latest/download/defi-cli-macos-x64 -o defi-cli`
-
-`chmod +x defi-cli`
-
-If you try to run `./defi-cli` at this point, you will get a message that macOS has blocked it.
-
-To fix that, go to System Preferences and click Security & Privacy. Click the Open Anyway button in the General pane.
-
-<img src="https://user-images.githubusercontent.com/100382691/156895989-cee7cc92-6c79-4c8d-81d6-f561d3e63df9.png" width="500">
-
-Now you should be able to execute `./defi-cli` in your Terminal.
-
-## Windows
-
-Download the latest Windows release.
-
-https://github.com/jayohf/defi-cli/releases/latest/download/defi-cli-win-x64
-
-After downloading, you can optionally rename it from "defi-cli-win-64" to defi-cli. It will work either way.
-
-# Quickstart
-
-In Terminal (Linux/macOS) or CMD prompt (Windows) change your directory to where you downloaded defi-cli.
-
-` cd ~/Downloads`
-
-Configure your wallet by using the CLI or by editing the ~/Documents/defi-cli-cofigs/wallets.json file.
-
-`./defi-cli wallet private_key [paste key]`
-
-Start defi-cli.
-
-`./defi-cli start`
-
-# Supported Blockchains
-
-* Ethereum
-* Binance Smart Chain
-* Polygon (Matic)
-* Fantom Opera
-* KCC
-* Avalanche
-* Robinhood Chain (mainnet `4663`, testnet `46630`)
-
-## Robinhood Chain setup
-
-Configure RPC endpoints via the nodes command:
+## Setup
 
 ```shell
-./bin/run nodes robinhood.rpc https://rpc.mainnet.chain.robinhood.com
-./bin/run nodes robinhood.websockets https://rpc.mainnet.chain.robinhood.com
+npm install
+npm run build
 ```
 
-Public RPCs are convenient for smoke tests but may rate-limit. Prefer a dedicated RPC provider for live trading.
+Configure a wallet:
 
-# Features
-### Fair Launch Sniping Tools
-#### Availability
-* Uniswap
-* SushiSwap
-* PancakeSwap
-* ApeSwap
-* QuickSwap
-* SpookySwap
-* SpiritSwap
-* KoffeeSwap
-* KuSwap
-* Trader Joe
-
-#### Telegram Scanner
-Listens and scans for new messages within the targeted Telegram group or channel for contract address, and automatically execute transaction as soon as a match is detected.
-Our custom filtering and sensitivity system automatically determine if a message sent is a contract address; whether if it is sent as swap link, or the contract address itself.
-The Telegram Scanner can also filter contract address sent hidden in media file, and sent separated in parts (e.g. A + C), both single or multiple message.
-Messages from popular Telegram bots such as MissRose are automatically filtered out, so you don't have to worry that you buy from Scammers with CA in their names.
-
-#### Manual Input Address
-
-In scenarios where you already have the contract address, you can set pending orders with Manual Input Address, and as soon as the liquidity has been added, or trading has been enabled, defi-cli will execute the transaction.
-
-### CoinMarketCap/CoinGecko Sniper
-#### Fastest Alerts Telegram
-
-Snipe listings as soon as it is posted to the CoinMarketCap or CoinGecko Fastest Alerts Telegram channel.
-This works as a continuous loop, and it will only snipe listings with Red Circled (received insider info) and with BNB as its primary liquidity.
-You can also configure the minimum and maximum liquidity/tax for the snipe, so you won't be buying into something with already 1500 BNB in liquidity, and hoping for a 2x.
-All the standard transactional configuration will be used, except for the RUG_PULL_CHECK and SELL_MANAGEMENT option.
-
-### Prediction Bot
-
-The Prediction of PancakeSwap and Candle Genie is a gambling ecosystem by predicting the price of BTC/USDT, BNB/USDT, or ETH/USDT will be bullish (up) or bearish (down) in the next 5 minutes.
-
-There are 3 betting strategies available in Prediction Bot:
-
-- Only Streak Bets - This will wait for a consecutive result of the previous 2 rounds, then continue betting the same result until the streak is broken.
-- Standard + Streak Bets - This will use a methodology to calculate the mathematical expectation and bet strategically, combined with, and prioritizing the streak strategy.
-- SS + Martingale Strategy - This will include martingale betting strategy with Standard + Streak Bets. This strategy will double up the bet amount on every lost bet, and only reset itself on a win.
-
-### DxSale/PinkSale Presale Bot
-
-Snipe listings on both DxSale and PinkSale.
-
-
-# Settings
-
-A defi-cli-configs folder will be created in your Documents. Inside you will find three JSON files that contain various settings.
-
-* config.json
-* nodeConfig.json
-* wallets.json
-
-## wallets.json
-
-`private_key`
-
-Enter the private key (64 characters, not the seed phrase) of your wallet that you wish to use defi-cli with. 
-
-`additional_private_keys`
-
-Reserved for future use.
-
-## config.json
-
-The configs.json file is located in the defi-cli-configs folder in your Documents.
-
-`amt_mode`
-
-Use USD, ETH, or TKN to configure the mode of the AMOUNT option. By setting USD will value in U.S. dollars, ETH will value in the native Blockchain token (e.g. ETH, BNB, etc.), and TKN will be in the amount of tokens itself.
-
-When using TKN mode, please make sure you have more than enough native balance to prevent "insufficient funds" error, as defi-cli is unable to estimate the native spending.
-
-`amount`
-
-Enter the amount for each of your transaction.
-
-`slippage`
-
-Enter the BURN (not price movement) tolerance for your transaction.
-
-E.g. If you were supposed to receive 1000 tokens from the swap, and have SLIPPAGE configured at 75, minimally you must receive 250 tokens back, otherwise it will be rejected by the exchange router.
-
-It is highly recommended to keep this configured between 98 and 100.
-
-`iteration`
-
-Enter the number of iteration you wish to perform. Each iteration will weight the AMOUNT parameter. E.g. If you have 0.25 in AMOUNT, and 2 in ITERATION, defi-cli will perform 0.25 ETH x 2, totaling 0.5 ETH.
-
-`gas_price`
-
-This is to configure the gas price of your transactions. You may also use 0 for defi-cli to calculate the gas automatically; 2x of the current network gas.
-
-`priority_gas`
-
-This is to configure the priority gas of your Ethereum Mainnet transactions.
-
-`honeypot_check`
-
-Use true or false to configure if defi-cli should scan the contract address with RugDoc's Honeypot Checker before executing the swap transaction.
-
-`block_severe_fee`
-
-Use true or false to configure if defi-cli should block severely high trading fee (over 50%) tokens. The HONEYPOT_CHECK option must be enabled for this to work.
-
-`delay_execution`
-
-This configures the number of block to skip before executing the swap transaction.
-
-`delay_iteration`
-
-This configures the delay in seconds between each iteration.
-
-`rug_pull_check`
-
-Use true or false to configure if defi-cli should listen to removeLiquidity() related transaction. If such a transaction is detected, defi-cli will TRY to front-run the transaction. 
-
-`sell_management`
-
-Use true or false to configure if defi-cli should monitor the live value and sell options after the swap transactions. 
-
-## nodeConfig.json
-
-This file contains the websocket and RPC node URLs for each blockchain.
-
-## Telegram
-
-The telegram.json file is located in the defi-cli-configs folder in your Documents.
-
-In order for Telegram Scanner and CMC/CG Fastest Alerts Telegram to work, defi-cli needs to log in to your Telegram account.
-
-To do so, you would need to provide API parameters of your account. Follow these steps:
-
-* Log in to Telegram Core
-
-* Go to API Development Tools and fill in the form as follows:
-    * App title - deficli
-    * Short name - deficli
-    * URL -
-    * Platform - Other
-    * Description -
-
-* Click on the "Create application" button, and you should see the app configuration.
-
-* Copy the app_id and app_hash, and paste it to your telegram.json file.
-
-# Commands
-<!-- commands -->
-* [`defi-cli autocomplete [SHELL]`](#defi-cli-autocomplete-shell)
-* [`defi-cli config [KEY] [VALUE]`](#defi-cli-config-key-value)
-* [`defi-cli help [COMMAND]`](#defi-cli-help-command)
-* [`defi-cli nodes [KEY] [VALUE]`](#defi-cli-nodes-key-value)
-* [`defi-cli start`](#defi-cli-start)
-* [`defi-cli wallet [KEY] [VALUE]`](#defi-cli-wallet-key-value)
-
-## `defi-cli autocomplete [SHELL]`
-
-display autocomplete installation instructions
-
-```
-USAGE
-  $ defi-cli autocomplete [SHELL] [-r]
-
-ARGUMENTS
-  SHELL  shell type
-
-FLAGS
-  -r, --refresh-cache  Refresh cache (ignores displaying instructions)
-
-DESCRIPTION
-  display autocomplete installation instructions
-
-EXAMPLES
-  $ defi-cli autocomplete
-
-  $ defi-cli autocomplete bash
-
-  $ defi-cli autocomplete zsh
-
-  $ defi-cli autocomplete --refresh-cache
+```shell
+./bin/run wallet private_key <PRIVATE_KEY>
 ```
 
-_See code: [@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete/blob/v1.2.0/src/commands/autocomplete/index.ts)_
+Start the CLI:
 
-## `defi-cli config [KEY] [VALUE]`
-
-manage configuration
-
-```
-USAGE
-  $ defi-cli config [KEY] [VALUE] [-h] [-d]
-
-ARGUMENTS
-  KEY    (amt_mode|amount|slippage|iteration|gas_price|priority_gas|honeypot_check|block_severe_fee|delay_execution|dela
-         y_iteration|rug_pull_check|sell_management|telegram.api_id|telegram.api_hash)
-  VALUE  value
-
-FLAGS
-  -d, --delete  delete?
-  -h, --help    show CLI help
-
-DESCRIPTION
-  manage configuration
+```shell
+./bin/run start
 ```
 
-_See code: [dist/commands/config.ts](https://github.com/jayohf/defi-cli/blob/v0.2.0/dist/commands/config.ts)_
+Then select:
 
-## `defi-cli help [COMMAND]`
+1. `Robinhood Chain`
+2. `Uniswap on Robinhood Chain`
+3. `Manual Address Swap`
+4. `Manual Input Address`
 
-Display help for defi-cli.
+The app stores local config files under `~/Documents/defi-cli-configs`.
 
-```
-USAGE
-  $ defi-cli help [COMMAND] [-n]
+## Telegram Bot
 
-ARGUMENTS
-  COMMAND  Command to show help for.
+The Telegram interface is a separate Bot API process started from the same project.
 
-FLAGS
-  -n, --nested-commands  Include all nested commands in the output.
+Create a bot token with BotFather:
 
-DESCRIPTION
-  Display help for defi-cli.
-```
+1. Open Telegram and message `@BotFather`.
+2. Run `/newbot`.
+3. Choose a bot name and username.
+4. Copy the bot token into `TELEGRAM_BOT_TOKEN`.
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.11/src/commands/help.ts)_
+Required environment variables:
 
-## `defi-cli nodes [KEY] [VALUE]`
-
-manage EVM node configuration
-
-```
-USAGE
-  $ defi-cli nodes [KEY] [VALUE] [-h] [-d]
-
-ARGUMENTS
-  KEY    (eth.websockets|eth.rpc|eth_rinkeby.websockets|eth_rinkeby.rpc|bsc.websockets|bsc.rpc|matic.websockets|matic.rp
-         c|ftm.websockets|ftm.rpc|kcs.websockets|kcs.rpc|avax.websockets|avax.rpc)
-  VALUE  value
-
-FLAGS
-  -d, --delete  delete?
-  -h, --help    show CLI help
-
-DESCRIPTION
-  manage EVM node configuration
+```shell
+TELEGRAM_BOT_TOKEN=123456:telegram-token
+RH_BOT_MASTER_KEY=change-this-long-random-secret
 ```
 
-_See code: [dist/commands/nodes.ts](https://github.com/jayohf/defi-cli/blob/v0.2.0/dist/commands/nodes.ts)_
+Optional environment variables:
 
-## `defi-cli start`
-
-run bot
-
-```
-USAGE
-  $ defi-cli start
-
-DESCRIPTION
-  run bot
-
-EXAMPLES
-  $ defi-cli start
+```shell
+RH_ADMIN_IDS=123456789,987654321
+ROBINHOOD_RPC_URL=https://rpc.mainnet.chain.robinhood.com
+RH_BOT_DB=C:\Users\Alexander Rozenberg\Documents\robinhood-defi-bot\bot.sqlite
 ```
 
-_See code: [dist/commands/start.ts](https://github.com/jayohf/defi-cli/blob/v0.2.0/dist/commands/start.ts)_
+Start the bot:
 
-## `defi-cli wallet [KEY] [VALUE]`
-
-add or remove wallet
-
-```
-USAGE
-  $ defi-cli wallet [KEY] [VALUE] [-h] [-d]
-
-ARGUMENTS
-  KEY    (private_key|additional_private_keys)
-  VALUE  value
-
-FLAGS
-  -d, --delete  delete?
-  -h, --help    show CLI help
-
-DESCRIPTION
-  add or remove wallet
+```shell
+npm run bot
 ```
 
-_See code: [dist/commands/wallet.ts](https://github.com/jayohf/defi-cli/blob/v0.2.0/dist/commands/wallet.ts)_
-<!-- commandsstop -->
+The bot stores encrypted per-user private keys in SQLite. The master key is required to decrypt them, so losing `RH_BOT_MASTER_KEY` means losing access to stored bot wallets. Never commit the bot token, master key, database, private keys, or screenshots containing secrets.
+
+Bot menu:
+
+- `Wallet`: import a private key, show wallet status, or remove wallet.
+- `Snipe / Buy`: send a token address, preview the quote, and confirm.
+- `Sell`: send a token address, choose 25/50/75/100 percent, and confirm.
+- `Settings`: amount mode, amount, slippage, iterations, gas, and dry run.
+- `History`: recent submitted or dry-run trades.
+- `Help`: safety notes and commands.
+
+Dry run is ON by default. In dry-run mode the bot validates, quotes, and estimates gas but does not send a transaction. Turn dry run OFF only after testing with a fresh wallet and tiny balances.
+
+Admin commands:
+
+- `/pause`: pause trading actions for non-admin users.
+- `/resume`: resume trading actions.
+
+## Configuration
+
+Use `./bin/run config <key> <value>` for trading settings.
+
+- `amt_mode`: `USD` or `ETH`. Robinhood `USD` mode routes through USDG.
+- `amount`: amount to spend per iteration.
+- `slippage`: burn/fee tolerance inherited from the upstream CLI.
+- `iteration`: number of repeated buys.
+- `gas_price`: use `0` for automatic gas price.
+- `sell_management`: set `true` to monitor the bought token and enable keyboard-driven sells.
+
+Use `./bin/run nodes <key> <value>` for RPC settings.
+
+- `robinhood.rpc`
+- `robinhood.websockets`
+- `robinhood_testnet.rpc`
+- `robinhood_testnet.websockets`
+
+The default `robinhood.websockets` value is the public HTTP RPC because Robinhood's public websocket feed is a sequencer feed, not a standard Web3 JSON-RPC websocket. Use an Alchemy, QuickNode, or other provider websocket URL if you need pending transaction subscriptions.
+
+## Current Scope
+
+Working now:
+
+- Robinhood Chain network selection
+- Robinhood RPC config
+- Wallet balance display
+- USDG/WETH quote path
+- Manual-address ETH-to-token swaps through Uniswap V2
+- Optional post-buy sell management
+- Public multi-user Telegram bot with encrypted per-user wallets
+- Telegram buy/sell confirmations, settings, dry run, history, and admin pause
+
+Deferred:
+
+- Telegram scanner
+- CMC/CoinGecko snipers
+- Prediction bots
+- DxSale/PinkSale presale flows
+- Universal Router / Uniswap V3 / Uniswap V4 routing
+
+## Safety
+
+This program sends live mainnet transactions. Start with a fresh wallet and tiny amounts. Never commit private keys, seed phrases, config files, or Telegram credentials.
+
+Router and token addresses were verified from Robinhood and Uniswap ecosystem references during the fork, but Robinhood Chain is new. Reconfirm contract addresses on Blockscout before using real funds.
+
+## Warnings
+
+- Public RPCs may throttle or omit pending-tx subscriptions — use a private provider for production.
+- Full DEX routing (V3/V4/Universal Router) is unsupported; only Uniswap V2 `RH_UNI` manual swaps are wired.
