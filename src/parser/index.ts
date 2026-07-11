@@ -1,4 +1,4 @@
-﻿import ora from 'ora'
+import ora from 'ora'
 import {
   checkForHoneypot,
 } from '../components/fetch/index'
@@ -37,7 +37,10 @@ export const executePresaleContribution = async (userAddress: any, privateKey: a
 export const executeSniperSwap = async (userAddress: any, privateKey: any, contractAddress: any, configs: any, chain: any, exchange: any, menuSelection = 1) => {
   printHeading('Sniper Execution')
 
-  if (configs.honeypot_check.toLowerCase() === 'true') {
+  if (configs.honeypot_check.toLowerCase() === 'true' && chain === 4663) {
+    printSubHeading('Honeypot Token Checker')
+    console.log('Skipped: RugDoc checks are not available for Robinhood Chain.')
+  } else if (configs.honeypot_check.toLowerCase() === 'true') {
     printSubHeading('RugDoc\'s Honeypot Token Checker')
     const spinner = ora({text: ('Checking'), spinner: 'aesthetic'}).start()
     await checkForHoneypot(contractAddress, configs.block_severe_fee.toLowerCase(), chain).then(Q => {

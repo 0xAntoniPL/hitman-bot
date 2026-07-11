@@ -195,6 +195,12 @@ export const initializeExchange = (chain: any, exchange: any) => {
       }
       break
 
+    case 'RH_UNI':
+      contract = {
+        router: new web3.eth.Contract(uniswapRouterAbi, '0x89e5DB8B5aA49aA85AC63f691524311AEB649eba'),
+      }
+      break
+
     default:
       break
     }
@@ -218,6 +224,11 @@ export const getAmountsOut = async (amount: any, D = native, J = usd): Promise<B
   if (amount.lte(zero)) return zero
   const result = (await contract.router.methods.getAmountsOut(amount.toString(), [D, J]).call()) || [amount.toString(), '0']
   return web3utils.toBN(result[1])
+}
+
+const formatUsdAmount = (amount: any, chain: any) => {
+  if (chain !== 56 && chain !== 321) return formatWei(amount, 'mwei')
+  return formatWei(amount, 'ether')
 }
 
 export const contributeToPresale = (userAddress: any, privateKey: any, presaleAddress: any, startTime: any, menuOption: any, configs: any, chain: any, amount: any) => {
@@ -315,12 +326,10 @@ export const swapExactETHForTokens = (userAddress: any, privateKey: any, contrac
     let iteration: any
     let U: any
     let amountsOut: any
-    // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-    if (configs.amt_mode.toLowerCase() === 'usd') amountsOut = await getAmountsOut(chain !== 56 && chain !== 321 ? formatWei(configs.amount, 'mwei') : formatWei(configs.amount), usd, native)
+    if (configs.amt_mode.toLowerCase() === 'usd') amountsOut = await getAmountsOut(formatUsdAmount(configs.amount, chain), usd, native)
     else {
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       // eslint-disable-next-line no-lonely-if
-      if (configs.amt_mode.toLowerCase() === 'eth') amountsOut = web3utils.toBN(formatWei(configs.amount))
+      if (configs.amt_mode.toLowerCase() === 'eth') amountsOut = formatWei(configs.amount, 'ether')
       else {
         fileLogger.error('CORE: swapExactETHForTokens(): Native Error')
         throw 'Native Error'
@@ -466,6 +475,8 @@ export const afterSwapMonitor = (userAddress: any, privateKey: any, contractAddr
     const spinner = ora({text: ('Indexing'), spinner: 'aesthetic'}).start()
 
     const z = process.hrtime()
+    const providerUrl = String(web3.currentProvider?.host || web3.currentProvider?.url || '')
+    const supportsPendingTransactions = !(chain === 4663 && providerUrl.toLowerCase().startsWith('http'))
 
     const web3Secondary = new secondary.eth.Contract([{
       constant: true,
@@ -530,7 +541,11 @@ export const afterSwapMonitor = (userAddress: any, privateKey: any, contractAddr
       // eslint-disable-next-line unicorn/numeric-separators-style
       spinner.succeed('Indexed at: ' + (await getSecondaryBlock()) + ' / Took: ' + (Number((N[0] * 1000000000 + N[1]) / 1000000) / 1000).toFixed(4) + ' seconds')
 
-      if (configs.rug_pull_check.toLowerCase() === 'true' && menuSelection !== 341 && menuSelection !== 342) {
+      if (configs.rug_pull_check.toLowerCase() === 'true' && chain === 4663 && !supportsPendingTransactions) {
+        spinner.warn('Robinhood rug-pull pending transaction checker requires a websocket JSON-RPC endpoint.')
+      }
+
+      if (configs.rug_pull_check.toLowerCase() === 'true' && menuSelection !== 341 && menuSelection !== 342 && supportsPendingTransactions) {
         H = true
         printSubHeading('Liquidity Rug Pull Checker')
         const d = 'Listening for `removeLiquidity` transaction in the background.'
