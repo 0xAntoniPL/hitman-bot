@@ -9,3 +9,6 @@ oclif.manifest.json
 /pkg
 rebuild-history.mjs
 rebuild-run.log
+
+rebuild-out.txt
+
