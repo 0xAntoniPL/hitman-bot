@@ -2,7 +2,7 @@
 
 Hitman Bot is the first open source sniping bot for Robinhood Chain
 
-This version narrows the original multi-chain DeFi toolkit to a first working Robinhood Chain program (**Hitman Bot**). It supports manual contract-address swaps through Uniswap V2 on Robinhood Chain, with optional Telegram bot control.
+This program creates a first working Robinhood Chain program (**Hitman Bot**). It supports manual contract-address swaps through Uniswap V2 on Robinhood Chain, with optional Telegram bot control.
 
 
 ![Hitman Bot](assets/hitman-logo.png)
