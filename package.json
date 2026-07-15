@@ -17,7 +17,7 @@
     "/oclif.manifest.json"
   ],
   "dependencies": {
-    "@mtproto/core": "6.1.1",
+    "@mtproto/core": "6.3.0",
     "@oclif/command": "^1.8.16",
     "@oclif/core": "^1",
     "@oclif/plugin-autocomplete": "^1.2.0",
@@ -43,7 +43,7 @@
     "winston-daily-rotate-file": "^4.5.5"
   },
   "devDependencies": {
-    "@mtproto/core": "6.1.1",
+    "@mtproto/core": "6.3.0",
     "@oclif/test": "^2",
     "@types/better-sqlite3": "^7.6.13",
     "@types/chai": "^4",
