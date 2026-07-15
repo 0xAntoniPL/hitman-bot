@@ -12,3 +12,8 @@ rebuild-run.log
 
 rebuild-out.txt
 
+.env
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+

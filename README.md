@@ -4,8 +4,18 @@ Hitman Bot is the first open source sniping bot for Robinhood Chain
 
 This program creates a first working Robinhood Chain program (**Hitman Bot**). It supports manual contract-address swaps through Uniswap V2 on Robinhood Chain, with optional Telegram bot control.
 
-
 ![Hitman Bot](assets/hitman-logo.png)
+
+## Fastest Local Setup
+
+For a user who downloads this repo and wants their own Telegram bot:
+
+1. Install Node.js LTS from `https://nodejs.org`.
+2. Double-click `START-HITMAN-BOT.bat`.
+3. Follow the BotFather/token prompts.
+4. Open your own Telegram bot link and press `Start`.
+
+See `RUN-LOCAL-BOT.md` for the simple user guide.
 
 ## Network
 
@@ -79,6 +89,8 @@ Start the bot:
 ```shell
 npm run bot
 ```
+
+For a public single-link deployment where anyone can open `https://t.me/HitmanRobinhoodBot`, see `PUBLIC-BOT-SETUP.md`. The project includes Railway, Render, and Procfile configs so the bot can run as an always-on worker.
 
 The bot stores encrypted per-user private keys in SQLite. The master key is required to decrypt them, so losing `RH_BOT_MASTER_KEY` means losing access to stored bot wallets. Never commit the bot token, master key, database, private keys, or screenshots containing secrets.
 

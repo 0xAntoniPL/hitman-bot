@@ -100,6 +100,7 @@
     "postpack": "shx rm -f oclif.manifest.json",
     "prepack": "yarn build && oclif manifest && oclif readme",
     "smoke:robinhood": "node scripts/robinhood-smoke.js",
+    "start": "npm run bot",
     "test": "mocha --forbid-only test/bot/security.test.ts test/bot/storage.test.ts test/services/robinhood-trading.test.ts",
     "version": "oclif readme && git add README.md",
     "pkg": "pkg ."

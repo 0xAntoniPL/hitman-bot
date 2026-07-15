@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1900" viewBox="0 0 1600 1900">
+  <defs>
+    <style>
+      .bg { fill: #0b0f14; }
+      .panel { fill: #111821; stroke: #223044; stroke-width: 2; }
+      .phone { fill: #101820; stroke: #31445c; stroke-width: 3; }
+      .chat { fill: #17212b; }
+      .bubble { fill: #202c38; }
+      .button { fill: #26384a; stroke: #3c5571; stroke-width: 1.5; }
+      .buttonText { fill: #dbe7f3; font-family: Arial, sans-serif; font-size: 18px; font-weight: 600; }
+      .title { fill: #f0f6fc; font-family: Arial, sans-serif; font-size: 34px; font-weight: 700; }
+      .subtitle { fill: #93a4b7; font-family: Arial, sans-serif; font-size: 18px; }
+      .label { fill: #9fb4c8; font-family: Arial, sans-serif; font-size: 18px; font-weight: 700; }
+      .small { fill: #9fb4c8; font-family: Arial, sans-serif; font-size: 15px; }
+      .body { fill: #e8eef5; font-family: Arial, sans-serif; font-size: 18px; }
+      .mono { fill: #d6e2ee; font-family: Consolas, "Courier New", monospace; font-size: 17px; }
+      .monoDim { fill: #8ea2b6; font-family: Consolas, "Courier New", monospace; font-size: 16px; }
+      .green { fill: #63d297; }
+      .blue { fill: #77b7ff; }
+      .orange { fill: #ffbf69; }
+      .line { stroke: #3c5571; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#3c5571" />
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1600" height="1900"/>
+  <text class="title" x="60" y="70">Hitman Telegram Bot UI - exact current code render</text>
+  <text class="subtitle" x="60" y="105">Not AI-generated art. This SVG is built from the strings and inline button labels currently in src/bot/menus.ts and src/bot/handlers/index.ts.</text>
+
+  <rect class="panel" x="60" y="145" width="1480" height="410" rx="18"/>
+  <text class="label" x="90" y="185">Code source: src/bot/menus.ts</text>
+  <text class="monoDim" x="90" y="225">export const mainMenu = () =&gt; Markup.inlineKeyboard([</text>
+  <text class="mono" x="115" y="252">[Markup.button.callback('Wallet', 'main:wallet'), Markup.button.callback('Snipe / Buy', 'main:buy')],</text>
+  <text class="mono" x="115" y="279">[Markup.button.callback('Sell', 'main:sell'), Markup.button.callback('Settings', 'main:settings')],</text>
+  <text class="mono" x="115" y="306">[Markup.button.callback('History', 'main:history'), Markup.button.callback('Help', 'main:help')],</text>
+  <text class="monoDim" x="90" y="333">])</text>
+  <text class="monoDim" x="90" y="375">export const walletMenu = () =&gt; Markup.inlineKeyboard([</text>
+  <text class="mono" x="115" y="402">[Markup.button.callback('Import private key', 'wallet:import')],</text>
+  <text class="mono" x="115" y="429">[Markup.button.callback('Show wallet', 'wallet:show'), Markup.button.callback('Remove wallet', 'wallet:remove:confirm')],</text>
+  <text class="mono" x="115" y="456">[Markup.button.callback('Back', 'main:menu')],</text>
+  <text class="monoDim" x="90" y="483">])</text>
+  <text class="small" x="90" y="522">Other inline keyboards in code: settingsMenu, confirmBuyMenu, sellPercentMenu, confirmSellMenu, removeWalletMenu.</text>
+
+  <rect class="panel" x="60" y="590" width="1480" height="390" rx="18"/>
+  <text class="label" x="90" y="630">Code source: src/bot/handlers/index.ts</text>
+  <text class="monoDim" x="90" y="670">bot.start(async ctx =&gt; {</text>
+  <text class="mono" x="115" y="697">await ctx.reply(</text>
+  <text class="mono green" x="140" y="724">'Hitman Robinhood bot is online.\n\nUse the menu below to import a wallet, configure defaults, and confirm Robinhood Chain trades.',</text>
+  <text class="mono" x="140" y="751">mainMenu(),</text>
+  <text class="mono" x="115" y="778">)</text>
+  <text class="monoDim" x="90" y="805">})</text>
+  <text class="monoDim" x="90" y="847">const previewBuy = async (...) =&gt; {</text>
+  <text class="mono green" x="115" y="874">`Buy ${quote.token.symbol}`</text>
+  <text class="mono green" x="115" y="901">`Spend: ${quote.spendAmount} ${quote.amountMode}`</text>
+  <text class="mono green" x="115" y="928">'Confirm before sending this transaction.'</text>
+  <text class="monoDim" x="90" y="955">}</text>
+
+  <text class="title" x="60" y="1040">Telegram UI Flow</text>
+  <text class="subtitle" x="60" y="1074">Sample token/balance values are placeholders because live quotes depend on chain data. Message templates and button labels are exact from code.</text>
+
+  <g transform="translate(60 1110)">
+    <rect class="phone" x="0" y="0" width="440" height="700" rx="36"/>
+    <rect class="chat" x="20" y="60" width="400" height="610" rx="18"/>
+    <text class="label" x="40" y="42">/start</text>
+    <rect class="bubble" x="40" y="90" width="360" height="155" rx="18"/>
+    <text class="body" x="60" y="125">Hitman Robinhood bot is online.</text>
+    <text class="body" x="60" y="165">Use the menu below to import a wallet,</text>
+    <text class="body" x="60" y="192">configure defaults, and confirm</text>
+    <text class="body" x="60" y="219">Robinhood Chain trades.</text>
+    <rect class="button" x="45" y="265" width="170" height="48" rx="12"/>
+    <text class="buttonText" x="100" y="296">Wallet</text>
+    <rect class="button" x="225" y="265" width="170" height="48" rx="12"/>
+    <text class="buttonText" x="265" y="296">Snipe / Buy</text>
+    <rect class="button" x="45" y="325" width="170" height="48" rx="12"/>
+    <text class="buttonText" x="112" y="356">Sell</text>
+    <rect class="button" x="225" y="325" width="170" height="48" rx="12"/>
+    <text class="buttonText" x="273" y="356">Settings</text>
+    <rect class="button" x="45" y="385" width="170" height="48" rx="12"/>
+    <text class="buttonText" x="97" y="416">History</text>
+    <rect class="button" x="225" y="385" width="170" height="48" rx="12"/>
+    <text class="buttonText" x="293" y="416">Help</text>
+    <text class="small" x="40" y="520">Callback data:</text>
+    <text class="monoDim" x="40" y="550">main:wallet / main:buy</text>
+    <text class="monoDim" x="40" y="575">main:sell / main:settings</text>
+    <text class="monoDim" x="40" y="600">main:history / main:help</text>
+  </g>
+
+  <g transform="translate(580 1110)">
+    <rect class="phone" x="0" y="0" width="440" height="700" rx="36"/>
+    <rect class="chat" x="20" y="60" width="400" height="610" rx="18"/>
+    <text class="label" x="40" y="42">Wallet</text>
+    <rect class="bubble" x="40" y="90" width="360" height="60" rx="18"/>
+    <text class="body" x="60" y="127">Wallet menu</text>
+    <rect class="button" x="45" y="175" width="350" height="48" rx="12"/>
+    <text class="buttonText" x="150" y="206">Import private key</text>
+    <rect class="button" x="45" y="235" width="170" height="48" rx="12"/>
+    <text class="buttonText" x="85" y="266">Show wallet</text>
+    <rect class="button" x="225" y="235" width="170" height="48" rx="12"/>
+    <text class="buttonText" x="248" y="266">Remove wallet</text>
+    <rect class="button" x="45" y="295" width="350" height="48" rx="12"/>
+    <text class="buttonText" x="200" y="326">Back</text>
+    <rect class="bubble" x="40" y="385" width="360" height="100" rx="18"/>
+    <text class="body" x="60" y="420">Send the private key for the</text>
+    <text class="body" x="60" y="447">Robinhood Chain wallet. I will try</text>
+    <text class="body" x="60" y="474">to delete that message after import.</text>
+    <rect class="bubble" x="40" y="515" width="360" height="60" rx="18"/>
+    <text class="body" x="60" y="552">Wallet imported: 0x1234...7890</text>
+  </g>
+
+  <g transform="translate(1100 1110)">
+    <rect class="phone" x="0" y="0" width="440" height="700" rx="36"/>
+    <rect class="chat" x="20" y="60" width="400" height="610" rx="18"/>
+    <text class="label" x="40" y="42">Settings</text>
+    <rect class="bubble" x="40" y="90" width="360" height="180" rx="18"/>
+    <text class="body" x="60" y="125">Mode: USD</text>
+    <text class="body" x="60" y="152">Amount: 10</text>
+    <text class="body" x="60" y="179">Slippage: 100%</text>
+    <text class="body" x="60" y="206">Iterations: 1</text>
+    <text class="body" x="60" y="233">Gas: Auto</text>
+    <text class="body" x="60" y="260">Dry run: ON</text>
+    <rect class="button" x="45" y="292" width="170" height="48" rx="12"/>
+    <text class="buttonText" x="85" y="323">Mode: USD</text>
+    <rect class="button" x="225" y="292" width="170" height="48" rx="12"/>
+    <text class="buttonText" x="268" y="323">Amount: 10</text>
+    <rect class="button" x="45" y="352" width="170" height="48" rx="12"/>
+    <text class="buttonText" x="70" y="383">Slippage: 100%</text>
+    <rect class="button" x="225" y="352" width="170" height="48" rx="12"/>
+    <text class="buttonText" x="262" y="383">Iterations: 1</text>
+    <rect class="button" x="45" y="412" width="170" height="48" rx="12"/>
+    <text class="buttonText" x="94" y="443">Gas: Auto</text>
+    <rect class="button" x="225" y="412" width="170" height="48" rx="12"/>
+    <text class="buttonText" x="256" y="443">Dry run: ON</text>
+    <rect class="button" x="45" y="472" width="350" height="48" rx="12"/>
+    <text class="buttonText" x="200" y="503">Back</text>
+    <text class="small" x="40" y="575">Default values from defaultUserSettings().</text>
+  </g>
+
+  <path class="line" d="M500 1475 C535 1475 545 1475 570 1475"/>
+  <path class="line" d="M1020 1475 C1055 1475 1065 1475 1090 1475"/>
+
+  <g transform="translate(60 1830)">
+    <text class="subtitle" x="0" y="0">Buy flow: Main menu -> Snipe / Buy -> "Send the Robinhood Chain token contract address to buy." -> quote preview -> Confirm buy / Cancel.</text>
+    <text class="subtitle" x="0" y="30">Sell flow: Main menu -> Sell -> "Send the token contract address to sell." -> 25/50/75/100% -> quote preview -> Confirm sell / Cancel.</text>
+  </g>
+</svg>

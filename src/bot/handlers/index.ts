@@ -65,13 +65,33 @@ const decryptWalletKey = (db: BotDatabase, telegramId: number, masterKey: string
   }, masterKey)
 }
 
+const homeText = () => [
+  'Hitman Robinhood command center',
+  '',
+  'Private wallet vault. Robinhood Chain execution. Confirmation before every trade.',
+  '',
+  'Start in dry run mode, import a fresh wallet, then test quotes before sending live transactions.',
+].join('\n')
+
+const walletMenuText = () => [
+  'Wallet vault',
+  '',
+  'Import one private key per Telegram user. The key is encrypted locally before it is stored.',
+  '',
+  'Use a fresh trading wallet, not your main wallet.',
+].join('\n')
+
 const settingsSummary = (settings: UserSettings) => [
-  `Mode: ${settings.amountMode}`,
-  `Amount: ${settings.amount}`,
-  `Slippage: ${settings.slippage}%`,
-  `Iterations: ${settings.iterations}`,
-  `Gas: ${settings.gasPriceGwei === '0' ? 'Auto' : `${settings.gasPriceGwei} gwei`}`,
+  'Trade settings',
+  '',
+  `Amount mode: ${settings.amountMode}`,
+  `Spend amount: ${settings.amount}`,
+  `Slippage limit: ${settings.slippage}%`,
+  `Buy loops: ${settings.iterations}`,
+  `Gas price: ${settings.gasPriceGwei === '0' ? 'Auto' : `${settings.gasPriceGwei} gwei`}`,
   `Dry run: ${settings.dryRun ? 'ON' : 'OFF'}`,
+  '',
+  settings.dryRun ? 'Dry run is safe preview mode. No transaction is sent.' : 'Live mode is active. Confirmed trades can send mainnet transactions.',
 ].join('\n')
 
 const txList = (txHashes: string[]) => txHashes.map(hash => `${hash}\n${blockscoutTxUrl(hash)}`).join('\n\n')
@@ -94,15 +114,12 @@ export const registerBotHandlers = (bot: Telegraf<Context>, deps: HandlerDeps) =
 
   bot.start(async ctx => {
     ensureUser(ctx, db)
-    await ctx.reply(
-      'Hitman Robinhood bot is online.\n\nUse the menu below to import a wallet, configure defaults, and confirm Robinhood Chain trades.',
-      mainMenu(),
-    )
+    await ctx.reply(homeText(), mainMenu())
   })
 
   bot.command('menu', async ctx => {
     ensureUser(ctx, db)
-    await ctx.reply('Main menu', mainMenu())
+    await ctx.reply(homeText(), mainMenu())
   })
 
   bot.command('help', async ctx => {
@@ -127,20 +144,20 @@ export const registerBotHandlers = (bot: Telegraf<Context>, deps: HandlerDeps) =
   bot.action('main:menu', async ctx => {
     ensureUser(ctx, db)
     await answer(ctx)
-    await ctx.reply('Main menu', mainMenu())
+    await ctx.reply(homeText(), mainMenu())
   })
 
   bot.action('main:wallet', async ctx => {
     ensureUser(ctx, db)
     await answer(ctx)
-    await ctx.reply('Wallet menu', walletMenu())
+    await ctx.reply(walletMenuText(), walletMenu())
   })
 
   bot.action('wallet:import', async ctx => {
     const user = ensureUser(ctx, db)
     db.setPendingAction(user.telegramId, 'import_wallet')
     await answer(ctx)
-    await ctx.reply('Send the private key for the Robinhood Chain wallet. I will try to delete that message after import.')
+    await ctx.reply('Send the private key for the Robinhood Chain wallet. I will delete that message after import when Telegram allows it.')
   })
 
   bot.action('wallet:show', async ctx => {
@@ -150,8 +167,10 @@ export const registerBotHandlers = (bot: Telegraf<Context>, deps: HandlerDeps) =
       const wallet = requireWallet(db, user.telegramId)
       const status = await trading.getWalletStatus(wallet.address)
       await ctx.reply([
+        'Wallet status',
+        '',
         `Wallet: ${maskAddress(wallet.address)}`,
-        `ETH: ${status.ethBalance}`,
+        `Native ETH: ${status.ethBalance}`,
         `Approx USDG value: ${status.usdValue}`,
       ].join('\n'), walletMenu())
     } catch (error: any) {
@@ -212,7 +231,7 @@ export const registerBotHandlers = (bot: Telegraf<Context>, deps: HandlerDeps) =
     try {
       requireWallet(db, user.telegramId)
       db.setPendingAction(user.telegramId, 'buy_token')
-      await ctx.reply('Send the Robinhood Chain token contract address to buy.')
+      await ctx.reply('Send the Robinhood Chain token contract address to snipe or buy.')
     } catch (error: any) {
       await ctx.reply(error.message, walletMenu())
     }
@@ -225,7 +244,7 @@ export const registerBotHandlers = (bot: Telegraf<Context>, deps: HandlerDeps) =
     try {
       requireWallet(db, user.telegramId)
       db.setPendingAction(user.telegramId, 'sell_token')
-      await ctx.reply('Send the token contract address to sell.')
+      await ctx.reply('Send the Robinhood Chain token contract address to sell.')
     } catch (error: any) {
       await ctx.reply(error.message, walletMenu())
     }
@@ -242,7 +261,9 @@ export const registerBotHandlers = (bot: Telegraf<Context>, deps: HandlerDeps) =
       const quote = await trading.quoteSell(wallet.address, tokenAddress, percent)
       db.setPendingAction(user.telegramId, 'confirm_sell', {tokenAddress, percent})
       await ctx.reply([
-        `Sell ${quote.sellPercent}% ${quote.token.symbol}`,
+        `Sell preview: ${quote.token.symbol}`,
+        '',
+        `Percent: ${quote.sellPercent}%`,
         `Balance: ${quote.tokenBalance}`,
         `Sell amount: ${quote.sellAmount}`,
         `Expected ETH: ${quote.expectedEth}`,
@@ -334,11 +355,11 @@ export const registerBotHandlers = (bot: Telegraf<Context>, deps: HandlerDeps) =
     await answer(ctx)
     const history = db.listTradeHistory(user.telegramId)
     if (history.length === 0) return ctx.reply('No trade history yet.', mainMenu())
-    return ctx.reply(history.map(entry => [
+    return ctx.reply(['Trade history', '', history.map(entry => [
       `${entry.action} ${entry.tokenSymbol || entry.tokenAddress}`,
       `Status: ${entry.status}`,
       entry.txHash ? blockscoutTxUrl(entry.txHash) : entry.error,
-    ].filter(Boolean).join('\n')).join('\n\n'), mainMenu())
+    ].filter(Boolean).join('\n')).join('\n\n')].join('\n'), mainMenu())
   })
 
   bot.action('main:help', async ctx => {
@@ -351,7 +372,7 @@ export const registerBotHandlers = (bot: Telegraf<Context>, deps: HandlerDeps) =
     const user = ensureUser(ctx, db)
     const pending = db.getPendingAction(user.telegramId)
     const text = getMessageText(ctx)
-    if (!pending) return ctx.reply('Use /menu to choose an action.')
+    if (!pending) return ctx.reply('Use /menu to choose an action.', mainMenu())
 
     try {
       if (pending.action === 'import_wallet') {
@@ -395,7 +416,7 @@ const importWallet = async (ctx: Context, db: BotDatabase, masterKey: string, te
   db.clearPendingAction(telegramId)
 
   await ctx.deleteMessage().catch(() => {})
-  await ctx.reply(`Wallet imported: ${maskAddress(address)}`, walletMenu())
+  await ctx.reply(`Wallet imported and encrypted: ${maskAddress(address)}`, walletMenu())
 }
 
 const updateSetting = async (ctx: Context, db: BotDatabase, telegramId: number, action: string, value: string) => {
@@ -429,7 +450,8 @@ const previewBuy = async (ctx: Context, db: BotDatabase, trading: RobinhoodTradi
   db.setPendingAction(telegramId, 'confirm_buy', {tokenAddress: quote.token.address})
 
   await ctx.reply([
-    `Buy ${quote.token.symbol}`,
+    `Buy preview: ${quote.token.symbol}`,
+    '',
     `Token: ${quote.token.address}`,
     `Spend: ${quote.spendAmount} ${quote.amountMode}`,
     `Expected: ${quote.expectedTokens} ${quote.token.symbol}`,
@@ -456,12 +478,13 @@ const settingPrompt = (key: string) => {
 }
 
 const helpText = () => [
-  'Hitman Robinhood bot commands:',
+  'Hitman Robinhood bot',
+  '',
   '/start - open the bot',
   '/menu - main menu',
   '/help - safety and command help',
   '/pause - admin pause',
   '/resume - admin resume',
   '',
-  'Every buy/sell requires confirmation. Dry run is ON by default. This bot uses live Robinhood Chain mainnet when dry run is OFF.',
+  'Every buy and sell requires confirmation. Dry run is ON by default. This bot uses live Robinhood Chain mainnet when dry run is OFF.',
 ].join('\n')

@@ -1,0 +1,16 @@
+services:
+  - type: worker
+    name: hitman-robinhood-bot
+    env: node
+    plan: starter
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: RH_BOT_MASTER_KEY
+        sync: false
+      - key: ROBINHOOD_RPC_URL
+        value: https://rpc.mainnet.chain.robinhood.com
+      - key: RH_BOT_DB
+        value: ./data/hitman-bot.sqlite
