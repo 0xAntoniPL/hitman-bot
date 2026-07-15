@@ -9,6 +9,7 @@ interface StartBotOptions {
   masterKey?: string;
   adminIds?: string;
   rpcUrl?: string;
+  dryStart?: boolean;
 }
 
 const parseAdminIds = (value = '') => new Set(
@@ -39,13 +40,13 @@ const createRateLimiter = (windowMs = 1000) => {
 
 export const startBot = async (options: StartBotOptions = {}) => {
   const token = options.token || process.env.TELEGRAM_BOT_TOKEN
-  const masterKey = options.masterKey || process.env.RH_BOT_MASTER_KEY
+  const masterKey = options.masterKey || process.env.RH_BOT_MASTER_KEY || process.env.HITMAN_BOT_MASTER_KEY
   if (!token) throw new Error('TELEGRAM_BOT_TOKEN is required')
-  if (!masterKey) throw new Error('RH_BOT_MASTER_KEY is required')
+  if (!masterKey || masterKey.length < 16) throw new Error('RH_BOT_MASTER_KEY or HITMAN_BOT_MASTER_KEY must be at least 16 characters')
 
   const db = new BotDatabase()
   const trading = new RobinhoodTradingService(options.rpcUrl || process.env.ROBINHOOD_RPC_URL)
-  await trading.assertNetwork()
+  if (!options.dryStart) await trading.assertNetwork()
 
   const bot = new Telegraf<Context>(token)
   bot.use(createRateLimiter())
@@ -53,7 +54,7 @@ export const startBot = async (options: StartBotOptions = {}) => {
     db,
     trading,
     masterKey,
-    adminIds: parseAdminIds(options.adminIds || process.env.RH_ADMIN_IDS),
+    adminIds: parseAdminIds(options.adminIds || process.env.RH_ADMIN_IDS || process.env.HITMAN_ADMIN_IDS),
   })
 
   bot.catch((error, ctx) => {
@@ -70,6 +71,8 @@ export const startBot = async (options: StartBotOptions = {}) => {
     db.close()
   })
 
+  if (options.dryStart) return {bot, db}
+
   await bot.launch()
-  return bot
+  return {bot, db}
 }

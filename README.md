@@ -1,10 +1,12 @@
-# Robinhood Chain CLI
+# Hitman Bot
 
 Robinhood Chain-focused fork of `xRose1/defi-cli` by **0xAntoniPL**.
 
-This version narrows the original multi-chain DeFi toolkit to a first working Robinhood Chain program. It supports manual contract-address swaps through Uniswap V2 on Robinhood Chain. Telegram control is intentionally deferred until the local CLI flow is stable.
+This version narrows the original multi-chain DeFi toolkit to a first working Robinhood Chain program (**Hitman Bot**). It supports manual contract-address swaps through Uniswap V2 on Robinhood Chain, with optional Telegram bot control.
 
-![Robinhood CLI](assets/hitman-logo.png)
+Repository: https://github.com/0xAntoniPL/hitman-bot
+
+![Hitman Bot](assets/hitman-logo.png)
 
 ## Network
 
