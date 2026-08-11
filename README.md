@@ -22,7 +22,7 @@ See `RUN-LOCAL-BOT.md` for the simple user guide.
 - Network: Robinhood Chain
 - Chain ID: `4663`
 - Gas token: `ETH`
-- RPC: `https://rpc.mainnet.chain.robinhood.com`
+- RPC: `https://rpc.mainnet.chain.robinhood.com` or [Chainstack](https://chainstack.com/build-better-with-robinhood-chain/) for a low-latency endpoint. Free tier.
 - Explorer: `https://robinhoodchain.blockscout.com`
 - WETH: `0x0Bd7D308f8E1639FAb988df18A8011f41EAcAD73`
 - USDG: `0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168` (`6` decimals)
