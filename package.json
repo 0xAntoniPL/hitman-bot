@@ -23,7 +23,7 @@
     "@oclif/plugin-autocomplete": "^1.2.0",
     "@oclif/plugin-help": "^5",
     "@oclif/plugin-plugins": "^2.0.1",
-    "@oclif/plugin-warn-if-update-available": "^2.0.4",
+    "@oclif/plugin-warn-if-update-available": "^2.1.1",
     "abi-decoder": "^2.4.0",
     "better-sqlite3": "^12.11.1",
     "bn.js": "^5.2.0",
